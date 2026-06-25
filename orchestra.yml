@@ -1,0 +1,32 @@
+# Beskar workflow job (#65). The node runner clones this repo and runs these
+# steps in order on an approved runner image, inside the gVisor sandbox.
+name: beskar-e2e
+
+env:
+  EPOCHS: "3"
+  SEED: "42"
+  OUTPUT_DIR: /scratch/workspace/artifacts
+
+steps:
+  - name: Show environment
+    run: |
+      python --version
+      echo "epochs=$EPOCHS seed=$SEED out=$OUTPUT_DIR"
+
+  - name: Install dependencies
+    run: pip install --no-cache-dir -r requirements.txt
+
+  - name: Run unit tests
+    run: pytest -q
+
+  - name: Train
+    run: python trainer.py
+
+  - name: Evaluate
+    run: python evaluate.py
+
+  - name: Verify artifacts
+    run: |
+      test -f "$OUTPUT_DIR/model.json"
+      test -f "$OUTPUT_DIR/eval.json"
+      echo "artifacts present in $OUTPUT_DIR"
