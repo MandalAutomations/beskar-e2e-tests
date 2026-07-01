@@ -1,1 +1,4 @@
 pytest>=8.0
+# The Beskar GPU runner image (ghcr.io/beskarai/pytorch:2.3) already ships this,
+# so this install is a no-op there; it lets the repo run locally too.
+torch>=2.3
