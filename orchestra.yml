@@ -22,16 +22,16 @@ env:
   REQUIRE_GPU: "1"
   OUTPUT_DIR: /scratch/workspace/artifacts
 
-steps:
+steps:  
+  - name: Install dependencies
+    run: pip install --no-cache-dir -r requirements.txt
+
   - name: Show environment
     run: |
       python --version
       nvidia-smi
       python -c "import torch; print('torch', torch.__version__, 'cuda', torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else '')"
       echo "epochs=$EPOCHS seed=$SEED require_gpu=$REQUIRE_GPU out=$OUTPUT_DIR"
-
-  - name: Install dependencies
-    run: pip install --no-cache-dir -r requirements.txt
 
   - name: Run unit tests
     run: pytest -q
