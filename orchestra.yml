@@ -42,6 +42,9 @@ steps:
   - name: Evaluate
     run: python evaluate.py
 
+  - name: Echo Hello
+    run: python3 -c "print('Hello, this is a test!!')"
+
   - name: Verify artifacts
     run: |
       test -f "$OUTPUT_DIR/model.json"
