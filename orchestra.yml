@@ -33,14 +33,14 @@ steps:
       python -c "import torch; print('torch', torch.__version__, 'cuda', torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else '')"
       echo "epochs=$EPOCHS seed=$SEED require_gpu=$REQUIRE_GPU out=$OUTPUT_DIR"
 
-  # - name: Run unit tests
-  #   run: pytest -q
+  - name: Run unit tests
+    run: pytest -q
 
-  # - name: Train
-  #   run: python trainer.py
+  - name: Train
+    run: python trainer.py
 
-  # - name: Evaluate
-  #   run: python evaluate.py
+  - name: Evaluate
+    run: python evaluate.py
 
   - name: Echo Hello
     run: python3 -c "print('Hello, this is a test!!')"
